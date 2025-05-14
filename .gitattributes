@@ -1,0 +1,9 @@
+# Для LaTeX и текстовых файлов не менять окончания строк
+*.tex text eol=lf
+*.sty text eol=lf
+*.cls text eol=lf
+*.bib text eol=lf
+*.log text eol=lf
+*.aux text eol=lf
+*.toc text eol=lf
+*.pdf binary
