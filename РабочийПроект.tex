@@ -234,30 +234,37 @@
 
 \subsection{Модульное тестирование разработанной программной системы}
 
-Модульное тестирование проведено для проверки корректности работы отдельных компонентов программной системы аугментации изображений. Тестирование осуществлялось путем создания простых тестовых скриптов на языке Python без использования сторонних библиотек тестирования. Для каждого теста указаны назначение, код и результат, полученный при его выполнении. Тесты выполнялись на тестовом изображении размером 100x100 пикселей, созданном программно с использованием библиотеки Pillow, а результаты проверялись визуально (путем анализа сохраненных файлов) и программно (сравнением параметров).
+Модульное тестирование проведено для проверки корректности работы отдельных компонентов программной системы аугментации изображений. Тестирование осуществлялось с использованием встроенной библиотеки unittest языка Python, что позволило автоматизировать проверки функциональности функций и классов. Для каждого теста указаны назначение, код и результат, полученный при его выполнении. Тесты выполнялись на тестовом изображении размером 100x100 пикселей, созданном программно с использованием библиотеки Pillow, а результаты проверялись автоматически с сохранением файлов для визуального анализа.
 
 
 Тест 1: Проверка функции сдвига изображения (shift.py)
-Назначение теста: Проверить, что функция shift\_image корректно выполняет случайный сдвиг изображения в пределах заданного диапазона.
+Назначение теста: Убедиться, что функция shift\_image корректно выполняет случайный сдвиг изображения в пределах заданного диапазона без изменения размеров.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
 		from PIL import Image
+		import random
 		from augmentor import shift_image
 		
-		test_image = Image.new('RGB', (100, 100), color='white')
-		test_image.save('test_original_shift.png')
+		class TestShiftImage(unittest.TestCase):
+		def setUp(self):
 		
+		random.seed(42)
 		
+		self.test_image = Image.new('RGB', (100, 100), color='white')
+		self.test_image.save('test_original_shift.png')
 		
-		shifted_image = shift_image(test_image, max_shift=0.2)
+		def test_shift_image(self):
+		
+		shifted_image = shift_image(self.test_image, max_shift=0.1)
 		shifted_image.save('test_shifted.png')
 		
+		self.assertEqual(shifted_image.size, self.test_image.size, "Размеры изображения изменились после сдвига.")
 		
-		if shifted_image.size == test_image.size:
-		print("Тест пройден: размеры изображения сохранены после сдвига.")
-		else:
-		print("Тест провален: размеры изображения изменились после сдвига.")
+		
+		if __name__ == '__main__':
+		unittest.main()
 	\end{lstlisting}  
 	\caption{Модульный тест функции shift\_image}
 	\label{model_test:test1}
@@ -272,28 +279,31 @@
 \end{figure}
 
 Тест 2: Проверка функции изменения яркости (brightness.py)
-Назначение теста: Убедиться, что функция change\_brightness корректно изменяет яркость изображения в зависимости от заданного коэффициента.
+Назначение теста: Проверить, что функция change\_brightness корректно увеличивает яркость изображения при коэффициенте больше 1.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
 		from PIL import Image
 		import numpy as np
 		from augmentor import change_brightness
 		
-		test_image = Image.new('RGB', (100, 100), color=(128, 128, 128))
-		test_image.save('test_original_brightness.png')
+		class TestBrightness(unittest.TestCase):
+		def setUp(self):
+		self.test_image = Image.new('RGB', (100, 100), color=(128, 128, 128))
+		self.test_image.save('test_original_brightness.png')
 		
+		def test_change_brightness(self):
 		
-		bright_image = change_brightness(test_image, factor=1.5)
+		bright_image = change_brightness(self.test_image, factor=1.5)
 		bright_image.save('test_brightened.png')
 		
-		
 		bright_array = np.array(bright_image)
-		original_array = np.array(test_image)
-		if bright_array.mean() > original_array.mean():
-		print("Тест пройден: яркость изображения увеличилась.")
-		else:
-		print("Тест провален: яркость не изменилась или уменьшилась.")
+		original_array = np.array(self.test_image)
+		self.assertGreater(bright_array.mean(), original_array.mean(), "Яркость не увеличилась.")
+		
+		if __name__ == '__main__':
+		unittest.main()
 
 
 
@@ -311,24 +321,27 @@
 \end{figure}
 
 Тест 3: Проверка функции поворота изображения (rotate.py)
-Назначение теста: Проверить, что функция rotate\_image корректно поворачивает изображение на заданный угол.
+Назначение теста: Убедиться, что функция rotate\_image корректно поворачивает изображение и сохраняет заданный размер при использовании target\_size.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
 		from PIL import Image
 		from augmentor import rotate_image
 		
-		test_image = Image.new('RGB', (100, 100), color='white')
-		test_image.save('test_original_rotate.png')
+		class TestRotateImage(unittest.TestCase):
+		def setUp(self):
+		self.test_image = Image.new('RGB', (100, 100), color='white')
+		self.test_image.save('test_original_rotate.png')
 		
+		def test_rotate_image(self):
 		
-		rotated_image = rotate_image(test_image, angle=90, target_size=(100, 100))
+		rotated_image = rotate_image(self.test_image, angle=90, target_size=(100, 100))
 		rotated_image.save('test_rotated.png')
+		self.assertEqual(rotated_image.size, (100, 100), "Размер изображения не соответствует target_size.")
 		
-		if rotated_image.size == (100, 100):
-		print("Тест пройден: изображение повернуто и размер скорректирован.")
-		else:
-		print("Тест провален: размер изображения не соответствует ожидаемому.")
+		if __name__ == '__main__':
+		unittest.main()
 	\end{lstlisting}  
 	\caption{Модульный тест функции rotate\_image}
 	\label{model_test:test3}
@@ -343,24 +356,27 @@
 \end{figure}
 
 Тест 4: Проверка функции отражения изображения (flip.py)
-Назначение теста: Убедиться, что функция flip\_image корректно отражает изображение по вертикали.
+Назначение теста: Проверить, что функция flip\_image корректно отражает изображение по горизонтали.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
 		from PIL import Image
 		from augmentor import flip_image
 		
-		test_image = Image.new('RGB', (100, 100), color='black')
-		test_image.save('test_original_flip.png')
+		class TestFlipImage(unittest.TestCase):
+		def setUp(self):
+		self.test_image = Image.new('RGB', (100, 100), color='black')
+		self.test_image.save('test_original_flip.png')
 		
-		flipped_image = flip_image(test_image, mode='vertical')
-		flipped_image.save('test_flipped.png')
+		def test_flip_image(self):
 		
-		try:
+		flipped_image = flip_image(self.test_image, mode='horizontal')
 		flipped_image.save('test_flipped.png')
-		print("Тест пройден: изображение отражено по вертикали.")
-		except Exception as e:
-		print(f"Тест провален: ошибка при отражении - {e}")
+		self.assertEqual(flipped_image.size, self.test_image.size, "Размеры изменились после отражения.")
+		
+		if __name__ == '__main__':
+		unittest.main()
 	\end{lstlisting}  
 	\caption{Модульный тест функции flip\_image}
 	\label{model_test:test4}
@@ -375,26 +391,32 @@
 \end{figure}
 
 Тест 5: Проверка функции добавления шума (noise.py)
-Назначение теста: Проверить, что функция add\_noise корректно добавляет гауссовский шум к изображению в градациях серого.
+Назначение теста: Убедиться, что функция add\_noise добавляет шум к изображению в градациях серого.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
 		from PIL import Image
 		import numpy as np
+		import random
 		from augmentor import add_noise
 		
-		test_image = Image.new('L', (100, 100), color=128)
-		test_image.save('test_original_noise.png')
+		class TestNoise(unittest.TestCase):
+		def setUp(self):
+		random.seed(42)
+		self.test_image = Image.new('L', (100, 100), color=128)
+		self.test_image.save('test_original_noise.png')
 		
-		noisy_image = add_noise(test_image, noise_type='gaussian', stddev=15)
+		def test_add_noise(self):
+		
+		noisy_image = add_noise(self.test_image, noise_type='gaussian', stddev=10)
 		noisy_image.save('test_noisy.png')
-		
-		original_array = np.array(test_image)
 		noisy_array = np.array(noisy_image)
-		if noisy_array.var() > original_array.var():
-		print("Тест пройден: шум добавлен, дисперсия увеличилась.")
-		else:
-		print("Тест провален: дисперсия не изменилась.")
+		original_array = np.array(self.test_image)
+		self.assertGreater(noisy_array.var(), original_array.var(), "Дисперсия не увеличилась после добавления шума.")
+		
+		if __name__ == '__main__':
+		unittest.main()
 	\end{lstlisting}  
 	\caption{Модульный тест функции add\_noise}
 	\label{model_test:test5}
@@ -408,29 +430,33 @@
 	\label{fig:resulttest5}
 \end{figure}
 
-Тест 6: Проверка функции генерации аугментированных изображений (pipeline.py)
-Назначение теста: Проверить, что функция process\_images корректно генерирует заданное количество аугментированных изображений.
+Тест 6: Проверка функции обработки изображений (pipeline.py)
+Назначение теста: Проверить, что функция process\_images генерирует заданное количество аугментированных изображений.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
 		from PIL import Image
 		import os
-		from core.pipeline import process_images
 		from config.augmentation_config import augmentation_config
+		from core.pipeline import process_images
 		
-		test_image = Image.new('RGB', (100, 100), color='white')
-		test_image.save('test_original_pipeline.png')
+		class TestPipeline(unittest.TestCase):
+		def setUp(self):
+		self.test_image = Image.new('RGB', (100, 100), color='white')
+		self.test_image.save('test_original_pipeline.png')
 		
-		augmentation_config['volume_presets']['1х25'] = 3
-		results = process_images(test_image, target_size=(100, 100), volume_level='1х25')
+		augmentation_config['volume_presets']['1х25'] = 3  # Уменьшаем для теста
 		
+		def test_process_images(self):
+		
+		results = process_images(self.test_image, target_size=(100, 100), volume_level='1х25')
 		for i, img in enumerate(results):
 		img.save(f'test_pipeline_aug_{i}.png')
+		self.assertEqual(len(results), 3, "Количество сгенерированных изображений не равно 3.")
 		
-		if len(results) == 3:
-		print("Тест пройден: сгенерировано 3 аугментированных изображения.")
-		else:
-		print("Тест провален: количество изображений не соответствует ожидаемому.")
+		if __name__ == '__main__':
+		unittest.main()
 	\end{lstlisting}  
 	\caption{Модульный тест функции process\_images}
 	\label{model_test:test6}
@@ -444,8 +470,8 @@
 	\label{fig:resulttest6}
 \end{figure}
 
-Тест 7: Проверка загрузки изображений и интерфейса (main\_window.py)
-Назначение теста: Проверить, что класс MainWindow корректно загружает изображения и отображает их в интерфейсе.
+Тест 7: Проверка загрузки изображений в интерфейсе (main\_window.py)
+Назначение теста: Убедиться, что класс MainWindow корректно загружает изображения из папки.
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
@@ -486,26 +512,41 @@
 
 \begin{figure}[H]
 	\begin{lstlisting}[language=Python]
+		import unittest
+		from PySide6.QtWidgets import QApplication
 		from ui.augmentation_selector import AugmentationSelectorDialog
 		from config.augmentation_config import augmentation_config
-		from PySide6.QtWidgets import QApplication
+		import sys
 		
-		app = QApplication([])
+		class TestAugmentationSelector(unittest.TestCase):
+		@classmethod
+		def setUpClass(cls):
 		
-		available = augmentation_config['available_augmentations']
-		selected = ['shift', 'brightness']
+		cls.app = QApplication(sys.argv)
 		
-		dialog = AugmentationSelectorDialog(available, selected)
+		def setUp(self):
 		
-		dialog.checkboxes['rotate'].setChecked(True)
-		dialog.checkboxes['shift'].setChecked(True)
+		self.available = augmentation_config['available_augmentations']
+		self.selected = []
+		self.dialog = AugmentationSelectorDialog(self.available, self.selected)
 		
-		selected_augs = dialog.get_selected_augmentations()
+		def test_get_selected_augmentations(self):
 		
-		if 'rotate' in selected_augs and 'shift' in selected_augs:
-		print("Тест пройден: аугментации корректно выбраны.")
-		else:
-		print("Тест провален: аугментации не соответствуют выбору.")
+		self.dialog.checkboxes['rotate'].setChecked(True)
+		self.dialog.checkboxes['shift'].setChecked(True)
+		selected_augs = self.dialog.get_selected_augmentations()
+		
+		self.assertIn('rotate', selected_augs, "Аугментация 'rotate' не выбрана.")
+		self.assertIn('shift', selected_augs, "Аугментация 'shift' не выбрана.")
+		self.assertEqual(len(selected_augs), 2, "Количество выбранных аугментаций не соответствует ожидаемому (2).")
+		
+		@classmethod
+		def tearDownClass(cls):
+		
+		cls.app.quit()
+		
+		if __name__ == '__main__':
+		unittest.main()
 	\end{lstlisting}  
 	\caption{Модульный тест класса AugmentationSelectorDialog}
 	\label{model_test:test8}
