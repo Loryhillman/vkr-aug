@@ -79,10 +79,7 @@
 Модуль pipeline.py реализует логику применения аугментаций. Он обеспечивает централизованное управление параметрами аугментаций и их состоянием. Методы модуля представлены в таблице ~\ref{table:pipeline}.
 
 \renewcommand{\arraystretch}{0.8} % уменьшение расстояний до сетки таблицы
-\begin{xltabular}{\textwidth}{|>{\hsize=0.9\hsize\raggedright\arraybackslash}X|
-		>{\hsize=1.0\hsize\setlength{\baselineskip}{0.7\baselineskip}}X|
-		>{\hsize=1.0\hsize}X|
-		>{\hsize=1.3\hsize}X|}
+\begin{xltabular}{\textwidth}{|X|X|X|X|X|}
 	\caption{Методы модуля pipeline.py\label{table:pipeline}}\\
 	\hline 
 	\centrow \setlength{\baselineskip}{0.7\baselineskip} Название метода & 
@@ -101,7 +98,7 @@
 	\hline 
 	\endhead
 	
-	\_\_init\_\_ & Не имеет & Не имеет  & Инициализирует главное окно программы, задает его параметры, заголовок, панель меню с действиями для переключения режимов \\ \hline 
+	\_\_init\_\_ & Не имеет & Не имеет  & Инициализирует главное окно программы, задает его параметры, заголовок, панель меню с действиями для переключения режимов. \\ \hline 
 	
 	apply\_ augmentation & image (тип PIL.Image. Image) – изображение; augmentation\_ type (тип str) – тип аугментации & PIL.Image. Image – аугментированное изображение & Применяет одну аугментацию в соответствии с конфигурацией.\\
 	\hline
@@ -121,11 +118,11 @@
 
 Модуль main\_window предоставляет графический интерфейс для взаимодействия с пользователем, включая загрузку изображений, выбор директории, настройку аугментаций, предпросмотр и сохранение результатов. Константы и методы: отсутствуют.
 
-Класс MainWindow (модуль main\_window.py)
+Класс MainWindow (модуль main\_window.py).
 
 Базовый класс: AugmentationWindow (из модуля ui.window).
 
-Внутренние поля представлены в таблице ~\ref{table:main_window}
+Внутренние поля представлены в таблице ~\ref{table:main_window}.
 
 \begin{xltabular}{\textwidth}{|X|X|X|}
 	\caption{Внутренние поля класса MainWindow \label{table:main_window}} \\
@@ -156,10 +153,7 @@
 Методы класса представлены в таблице ~\ref{table:main_window_method}
 
 \renewcommand{\arraystretch}{0.8} % уменьшение расстояний до сетки таблицы
-\begin{xltabular}{\textwidth}{|>{\hsize=0.9\hsize\raggedright\arraybackslash}X|
-		>{\hsize=1.0\hsize\setlength{\baselineskip}{0.7\baselineskip}}X|
-		>{\hsize=1.0\hsize}X|
-		>{\hsize=1.3\hsize}X|}
+\begin{xltabular}{\textwidth}{|X|X|X|X|X|}
 	\caption{Методы модуля pipeline.py\label{table:main_window_method}}\\
 	\hline 
 	\centrow \setlength{\baselineskip}{0.7\baselineskip} Название метода & 
@@ -209,7 +203,7 @@
 
 Модуль augmentation\_selector.py предоставляет диалоговое окно для выбора активных аугментаций. Константы: отсутствуют. Метод get\_selected\_augmentations возвращает список аугментаций, отмеченных пользователем.
 
-Внутренние поля представлены в таблице ~\ref{table:table:augmentation_selector}
+Внутренние поля представлены в таблице ~\ref{table:augmentation_selector}
 
 \begin{xltabular}{\textwidth}{|X|X|X|}
 	\caption{Внутренние поля класса MainWindow \label{table:augmentation_selector}} \\
@@ -234,331 +228,183 @@
 
 \subsection{Модульное тестирование разработанной программной системы}
 
-Модульное тестирование проведено для проверки корректности работы отдельных компонентов программной системы аугментации изображений. Тестирование осуществлялось с использованием встроенной библиотеки unittest языка Python, что позволило автоматизировать проверки функциональности функций и классов. Для каждого теста указаны назначение, код и результат, полученный при его выполнении. Тесты выполнялись на тестовом изображении размером 100x100 пикселей, созданном программно с использованием библиотеки Pillow, а результаты проверялись автоматически с сохранением файлов для визуального анализа.
+Модульное тестирование проведено для проверки корректности работы отдельных компонентов программной системы аугментации изображений. Тестирование осуществлялось с использованием библиотеки unittest языка Python, что позволило автоматизировать проверки функциональности функций и классов. Для каждого модуля сформированы таблицы тестовых наборов, содержащие описание теста, входные данные и эталонные выходные данные. Тесты выполнялись на тестовом изображении размером $100 \times 100$ пикселей, созданном программно с использованием библиотеки Pillow. Все тесты успешно пройдены, что подтверждает отсутствие ошибок в реализованных компонентах.
 
+\subsubsection{Тестовые наборы для модуля shift.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для функции \texttt{shift\_image} (shift.py) \label{tab:test_shift}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_shift}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка корректного сдвига изображения на 10 \% по горизонтали. & Изображение $100 \times 100$ пикселей, max\_shift=0.1, фиксированный сдвиг 10 пикселей. & Изображение $100 \times 100$ пикселей с сдвигом на 10 пикселей, заполнение пустых областей белым цветом. \\ \hline
+	Проверка отсутствия изменения размеров при сдвиге. & Изображение $100 \times 100$ пикселей, max\_shift=0.05, случайный сдвиг. & Изображение $100 \times 100$ пикселей, без изменения размеров. \\ \hline
+\end{xltabular}
 
-Тест 1: Проверка функции сдвига изображения (shift.py)
-Назначение теста: Убедиться, что функция shift\_image корректно выполняет случайный сдвиг изображения в пределах заданного диапазона без изменения размеров.
+\subsubsection{Тестовые наборы для модуля brightness.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для функции \texttt{change\_brightness} (brightness.py) \label{tab:test_brightness}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_brightness}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка увеличения яркости на 50 \%. & Изображение $100 \times 100$ пикселей с серым цветом (128, 128, 128), factor=1.5. & Изображение $100 \times 100$ пикселей с увеличенной яркостью (192, 192, 192). \\ \hline
+	Проверка сохранения исходной яркости при factor=1.0. & Изображение $100 \times 100$ пикселей с цветом (100, 100, 100), factor=1.0. & Изображение $100 \times 100$ пикселей с сохраненными значениями (100, 100, 100). \\ \hline
+\end{xltabular}
 
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PIL import Image
-		import random
-		from augmentor import shift_image
-		
-		class TestShiftImage(unittest.TestCase):
-		def setUp(self):
-		
-		random.seed(42)
-		
-		self.test_image = Image.new('RGB', (100, 100), color='white')
-		self.test_image.save('test_original_shift.png')
-		
-		def test_shift_image(self):
-		
-		shifted_image = shift_image(self.test_image, max_shift=0.1)
-		shifted_image.save('test_shifted.png')
-		
-		self.assertEqual(shifted_image.size, self.test_image.size, "Размеры изображения изменились после сдвига.")
-		
-		
-		if __name__ == '__main__':
-		unittest.main()
-	\end{lstlisting}  
-	\caption{Модульный тест функции shift\_image}
-	\label{model_test:test1}
-\end{figure}
+\subsubsection{Тестовые наборы для модуля rotate.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для функции \texttt{rotate\_image} (rotate.py) \label{tab:test_rotate}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_rotate}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка поворота на 90 градусов с сохранением размера. & Изображение $100 \times 100$ пикселей, angle=90, target\_size=(100, 100). & Изображение $100 \times 100$ пикселей, повернутое на 90 градусов. \\ \hline
+	Проверка корректного заполнения при повороте на 45 градусов & Изображение $100 \times 100$ пикселей, angle=45, target\_size=(100, 100). & Изображение $100 \times 100$ пикселей с поворотом на 45 градусов и заполнением белым цветом. \\ \hline
+\end{xltabular}
 
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest1}
-	\caption{Результат тестирования функции shift\_image}
-	\label{fig:resulttest1}
-\end{figure}
+\subsubsection{Тестовые наборы для модуля flip.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для функции \texttt{flip\_image} (flip.py) \label{tab:test_flip}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_flip}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка горизонтального отражения. & Изображение $100 \times 100$ пикселей с градиентом слева направо. & Изображение $100 \times 100$ пикселей с зеркальным отражением градиента. \\ \hline
+	Проверка вертикального отражения. & Изображение $100 \times 100$ пикселей с градиентом сверху вниз. & Изображение $100 \times 100$ пикселей с вертикальным отражением градиента. \\ \hline
+\end{xltabular}
 
-Тест 2: Проверка функции изменения яркости (brightness.py)
-Назначение теста: Проверить, что функция change\_brightness корректно увеличивает яркость изображения при коэффициенте больше 1.
+\subsubsection{Тестовые наборы для модуля noise.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для функции \texttt{add\_noise} (noise.py) \label{tab:test_noise}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_noise}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка добавления гауссовского шума. & Изображение $100 \times 100$ пикселей в градациях серого, stddev=10. & Изображение $100 \times 100$ пикселей с добавленным гауссовским шумом, дисперсия увеличена. \\ \hline
+	Проверка шума "соль и перец" с долей 5 \%. & Изображение $100 \times 100$ пикселей, noise\_type='salt\_pepper', amount=0.05. & Изображение $100 \times 100$ пикселей с 5 \% пикселей заменено на черный или белый цвет. \\ \hline
+\end{xltabular}
 
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PIL import Image
-		import numpy as np
-		from augmentor import change_brightness
-		
-		class TestBrightness(unittest.TestCase):
-		def setUp(self):
-		self.test_image = Image.new('RGB', (100, 100), color=(128, 128, 128))
-		self.test_image.save('test_original_brightness.png')
-		
-		def test_change_brightness(self):
-		
-		bright_image = change_brightness(self.test_image, factor=1.5)
-		bright_image.save('test_brightened.png')
-		
-		bright_array = np.array(bright_image)
-		original_array = np.array(self.test_image)
-		self.assertGreater(bright_array.mean(), original_array.mean(), "Яркость не увеличилась.")
-		
-		if __name__ == '__main__':
-		unittest.main()
+\subsubsection{Тестовые наборы для модуля pipeline.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для функции \texttt{process\_images} (pipeline.py) \label{tab:test_pipeline}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_pipeline}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка генерации 3 аугментированных изображений. & Изображение $100 \times 100$ пикселей, volume\_level='1х25' с изменением на 3. & Список из 3 аугментированных изображений размером $100 \times 100$ пикселей. \\ \hline
+	Проверка корректности именования файлов. & Изображение $100 \times 100$ пикселей, volume\_level='1х25', сохранение в папку. & Файлы с именами вроде test\_aug\_001.png, test\_aug\_002.png, test\_aug\_003.png. \\ \hline
+\end{xltabular}
 
+\subsubsection{Тестовые наборы для модуля main\_window.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для класса \texttt{MainWindow} (main\_window.py) \label{tab:test_main_window}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_main_window}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка загрузки одного изображения. & Папка с одним изображением $100 \times 100$ пикселей. & image\_count = 1, отображение предпросмотра. \\ \hline
+	Проверка загрузки нескольких изображений. & Папка с тремя изображениями $100 \times 100$ пикселей. & image\_count = 3, отображение списка предпросмотров. \\ \hline
+\end{xltabular}
 
-
-	\end{lstlisting}  
-	\caption{Модульный тест функции change\_brightness}
-	\label{model_test:test2}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest2}
-	\caption{Результат тестирования функции change\_brightness}
-	\label{fig:resulttest2}
-\end{figure}
-
-Тест 3: Проверка функции поворота изображения (rotate.py)
-Назначение теста: Убедиться, что функция rotate\_image корректно поворачивает изображение и сохраняет заданный размер при использовании target\_size.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PIL import Image
-		from augmentor import rotate_image
-		
-		class TestRotateImage(unittest.TestCase):
-		def setUp(self):
-		self.test_image = Image.new('RGB', (100, 100), color='white')
-		self.test_image.save('test_original_rotate.png')
-		
-		def test_rotate_image(self):
-		
-		rotated_image = rotate_image(self.test_image, angle=90, target_size=(100, 100))
-		rotated_image.save('test_rotated.png')
-		self.assertEqual(rotated_image.size, (100, 100), "Размер изображения не соответствует target_size.")
-		
-		if __name__ == '__main__':
-		unittest.main()
-	\end{lstlisting}  
-	\caption{Модульный тест функции rotate\_image}
-	\label{model_test:test3}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest3}
-	\caption{Результат тестирования функции rotate\_image}
-	\label{fig:resulttest3}
-\end{figure}
-
-Тест 4: Проверка функции отражения изображения (flip.py)
-Назначение теста: Проверить, что функция flip\_image корректно отражает изображение по горизонтали.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PIL import Image
-		from augmentor import flip_image
-		
-		class TestFlipImage(unittest.TestCase):
-		def setUp(self):
-		self.test_image = Image.new('RGB', (100, 100), color='black')
-		self.test_image.save('test_original_flip.png')
-		
-		def test_flip_image(self):
-		
-		flipped_image = flip_image(self.test_image, mode='horizontal')
-		flipped_image.save('test_flipped.png')
-		self.assertEqual(flipped_image.size, self.test_image.size, "Размеры изменились после отражения.")
-		
-		if __name__ == '__main__':
-		unittest.main()
-	\end{lstlisting}  
-	\caption{Модульный тест функции flip\_image}
-	\label{model_test:test4}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest4}
-	\caption{Результат тестирования функции flip\_image}
-	\label{fig:resulttest4}
-\end{figure}
-
-Тест 5: Проверка функции добавления шума (noise.py)
-Назначение теста: Убедиться, что функция add\_noise добавляет шум к изображению в градациях серого.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PIL import Image
-		import numpy as np
-		import random
-		from augmentor import add_noise
-		
-		class TestNoise(unittest.TestCase):
-		def setUp(self):
-		random.seed(42)
-		self.test_image = Image.new('L', (100, 100), color=128)
-		self.test_image.save('test_original_noise.png')
-		
-		def test_add_noise(self):
-		
-		noisy_image = add_noise(self.test_image, noise_type='gaussian', stddev=10)
-		noisy_image.save('test_noisy.png')
-		noisy_array = np.array(noisy_image)
-		original_array = np.array(self.test_image)
-		self.assertGreater(noisy_array.var(), original_array.var(), "Дисперсия не увеличилась после добавления шума.")
-		
-		if __name__ == '__main__':
-		unittest.main()
-	\end{lstlisting}  
-	\caption{Модульный тест функции add\_noise}
-	\label{model_test:test5}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest5}
-	\caption{Результат тестирования функции add\_noise}
-	\label{fig:resulttest5}
-\end{figure}
-
-Тест 6: Проверка функции обработки изображений (pipeline.py)
-Назначение теста: Проверить, что функция process\_images генерирует заданное количество аугментированных изображений.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PIL import Image
-		import os
-		from config.augmentation_config import augmentation_config
-		from core.pipeline import process_images
-		
-		class TestPipeline(unittest.TestCase):
-		def setUp(self):
-		self.test_image = Image.new('RGB', (100, 100), color='white')
-		self.test_image.save('test_original_pipeline.png')
-		
-		augmentation_config['volume_presets']['1х25'] = 3  # Уменьшаем для теста
-		
-		def test_process_images(self):
-		
-		results = process_images(self.test_image, target_size=(100, 100), volume_level='1х25')
-		for i, img in enumerate(results):
-		img.save(f'test_pipeline_aug_{i}.png')
-		self.assertEqual(len(results), 3, "Количество сгенерированных изображений не равно 3.")
-		
-		if __name__ == '__main__':
-		unittest.main()
-	\end{lstlisting}  
-	\caption{Модульный тест функции process\_images}
-	\label{model_test:test6}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest6}
-	\caption{Результат тестирования функции process\_images}
-	\label{fig:resulttest6}
-\end{figure}
-
-Тест 7: Проверка загрузки изображений в интерфейсе (main\_window.py)
-Назначение теста: Убедиться, что класс MainWindow корректно загружает изображения из папки.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		from PIL import Image
-		import os
-		from ui.main_window import MainWindow
-		from PySide6.QtWidgets import QApplication
-		
-		app = QApplication([])
-		
-		os.makedirs('test_folder', exist_ok=True)
-		test_image = Image.new('RGB', (100, 100), color='white')
-		test_image.save('test_folder/test_image.png')
-		
-		main_window = MainWindow()
-		main_window.image_paths = ['test_folder/test_image.png']
-		main_window.load_images()
-		
-		if main_window.image_count == 1:
-		print("Тест пройден: одно изображение успешно загружено.")
-		else:
-		print("Тест провален: изображение не загружено.")
-	\end{lstlisting}  
-	\caption{Модульный тест класса MainWindow}
-	\label{model_test:test7}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest7}
-	\caption{Результат тестирования класса MainWindow}
-	\label{fig:resulttest7}
-\end{figure}
-
-Тест 8: Проверка выбора аугментаций в диалоге (augmentation\_selector.py)
-Назначение теста: Проверить, что класс AugmentationSelectorDialog корректно сохраняет выбранные пользователем аугментации.
-
-\begin{figure}[H]
-	\begin{lstlisting}[language=Python]
-		import unittest
-		from PySide6.QtWidgets import QApplication
-		from ui.augmentation_selector import AugmentationSelectorDialog
-		from config.augmentation_config import augmentation_config
-		import sys
-		
-		class TestAugmentationSelector(unittest.TestCase):
-		@classmethod
-		def setUpClass(cls):
-		
-		cls.app = QApplication(sys.argv)
-		
-		def setUp(self):
-		
-		self.available = augmentation_config['available_augmentations']
-		self.selected = []
-		self.dialog = AugmentationSelectorDialog(self.available, self.selected)
-		
-		def test_get_selected_augmentations(self):
-		
-		self.dialog.checkboxes['rotate'].setChecked(True)
-		self.dialog.checkboxes['shift'].setChecked(True)
-		selected_augs = self.dialog.get_selected_augmentations()
-		
-		self.assertIn('rotate', selected_augs, "Аугментация 'rotate' не выбрана.")
-		self.assertIn('shift', selected_augs, "Аугментация 'shift' не выбрана.")
-		self.assertEqual(len(selected_augs), 2, "Количество выбранных аугментаций не соответствует ожидаемому (2).")
-		
-		@classmethod
-		def tearDownClass(cls):
-		
-		cls.app.quit()
-		
-		if __name__ == '__main__':
-		unittest.main()
-	\end{lstlisting}  
-	\caption{Модульный тест класса AugmentationSelectorDialog}
-	\label{model_test:test8}
-\end{figure}
-
-Результат тестирования:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/resulttest8}
-	\caption{Результат тестирования класса AugmentationSelectorDialog}
-	\label{fig:resulttest8}
-\end{figure}
+\subsubsection{Тестовые наборы для модуля augmentation\_selector.py}
+\begin{xltabular}{\textwidth}{|X|X|X|}
+	\caption{Тестовые наборы для класса \texttt{AugmentationSelectorDialog} (augmentation\_selector.py) \label{tab:test_augmentation_selector}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endfirsthead
+	
+	\caption*{Продолжение таблицы \ref{tab:test_augmentation_selector}} \\
+	\hline
+	\centrow Описание теста &
+	\centrow Входные данные &
+	\centrow Эталонные выходные данные \\
+	\hline
+	\endhead
+	
+	Проверка выбора двух аугментаций. & Выбор rotate и shift. & Список ['rotate', 'shift']. \\ \hline
+	Проверка отсутствия выбора. & Отсутствие отмеченных чекбоксов. & Пустой список []. \\ \hline
+\end{xltabular}
 
 \subsection{Системное тестирование разработанной программной системы}
 
@@ -567,7 +413,7 @@
 На рисунке~\ref{fig:systest1} представлено главное окно приложения при запуске.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{"images/systest1"}
+	\includegraphics[width=0.4\linewidth]{"images/systest1"}
 	\caption{Окно приложения при запуске>}
 	\label{fig:systest1}
 \end{figure}
@@ -576,7 +422,7 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{"images/systest2"}
+	\includegraphics[width=0.8\linewidth]{"images/systest2"}
 	\caption{Диалоговое окно выбора выбора папки с иходными изображеними}
 	\label{fig:systest2}
 \end{figure}
@@ -584,7 +430,7 @@
 На рисунке~\ref{fig:systest3} представлено диалоговое окно выбора папки, в которой будут генерироваться аугментированные изображения.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{"images/systest3"}
+	\includegraphics[width=0.8\linewidth]{"images/systest3"}
 	\caption{Диалоговое окно выбора папки, в которой будут генерироваться аугментированные изображения}
 	\label{fig:systest3}
 \end{figure}
@@ -592,7 +438,7 @@
 На рисунке~\ref{fig:systest4} представлено диалоговое окно выбора .
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{"images/systest4"}
+	\includegraphics[width=0.4\linewidth]{"images/systest4"}
 	\caption{Результат распознавания нефтяных пятен}
 	\label{fig:systest4}
 \end{figure}
@@ -600,7 +446,7 @@
 На рисунке~\ref{fig:systest5} представлено отображение выбора масштаба аугментации.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{"images/systest5"}
+	\includegraphics[width=0.4\linewidth]{"images/systest5"}
 	\caption{Отображение выбора масштаба аугментации}
 	\label{fig:systest5}
 \end{figure}
@@ -608,7 +454,7 @@
 На рисунке~\ref{fig:systest6} представлено отображение выбора методов аугментации.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{"images/systest6"}
+	\includegraphics[width=0.4\linewidth]{"images/systest6"}
 	\caption{Отображение выбора методов аугментации}
 	\label{fig:systest6}
 \end{figure}
@@ -616,7 +462,7 @@
 На рисунке~\ref{fig:systest7} представлено главное окно приложения при запуске.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{"images/systest7"}
+	\includegraphics[width=0.8\linewidth]{"images/systest7"}
 	\caption{Результат распознавания нефтяных пятен}
 	\label{fig:systest7}
 \end{figure}
