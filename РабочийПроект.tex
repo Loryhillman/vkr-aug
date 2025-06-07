@@ -150,7 +150,7 @@
 	select\_augs\_button & QPushButton & Кнопка для открытия диалога выбора аугментаций. \\ \hline
 \end{xltabular}
 
-Методы класса представлены в таблице ~\ref{table:main_window_method}
+Методы класса представлены в таблице ~\ref{table:main_window_method}.
 
 \renewcommand{\arraystretch}{0.8} % уменьшение расстояний до сетки таблицы
 \begin{xltabular}{\textwidth}{|X|X|X|X|X|}
@@ -203,7 +203,7 @@
 
 Модуль augmentation\_selector.py предоставляет диалоговое окно для выбора активных аугментаций. Константы: отсутствуют. Метод get\_selected\_augmentations возвращает список аугментаций, отмеченных пользователем.
 
-Внутренние поля представлены в таблице ~\ref{table:augmentation_selector}
+Внутренние поля представлены в таблице ~\ref{table:augmentation_selector}.
 
 \begin{xltabular}{\textwidth}{|X|X|X|}
 	\caption{Внутренние поля класса MainWindow \label{table:augmentation_selector}} \\
@@ -226,13 +226,16 @@
 	checkboxes & dict & Словарь, где ключ – название аугментации, значение – QCheckBox. \\ \hline
 \end{xltabular}
 
-\subsection{Модульное тестирование разработанной программной системы}
+\subsection{Модульное тестирование разработанной программной системы}.
 
 Модульное тестирование проведено для проверки корректности работы отдельных компонентов программной системы аугментации изображений. Тестирование осуществлялось с использованием библиотеки unittest языка Python, что позволило автоматизировать проверки функциональности функций и классов. Для каждого модуля сформированы таблицы тестовых наборов, содержащие описание теста, входные данные и эталонные выходные данные. Тесты выполнялись на тестовом изображении размером $100 \times 100$ пикселей, созданном программно с использованием библиотеки Pillow. Все тесты успешно пройдены, что подтверждает отсутствие ошибок в реализованных компонентах.
 
 \subsubsection{Тестовые наборы для модуля shift.py}
+
+Тестовые наборы для модуля shift.py представлены в таблице ~\ref{tab:test_shift}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для функции \texttt{shift\_image} (shift.py) \label{tab:test_shift}} \\
+	\caption{Тестовые наборы для функции shift\_image (shift.py) \label{tab:test_shift}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -253,8 +256,12 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля brightness.py}
+
+Тестовые наборы для модуля brightness.py представлены в таблице ~\ref{tab:test_brightness}.
+
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для функции \texttt{change\_brightness} (brightness.py) \label{tab:test_brightness}} \\
+	\caption{Тестовые наборы для функции change\_brightness (brightness.py) \label{tab:test_brightness}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -275,8 +282,11 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля rotate.py}
+
+Тестовые наборы для модуля rotate.py представлены в таблице ~\ref{tab:test_rotate}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для функции \texttt{rotate\_image} (rotate.py) \label{tab:test_rotate}} \\
+	\caption{Тестовые наборы для функции rotate\_image (rotate.py) \label{tab:test_rotate}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -297,8 +307,11 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля flip.py}
+
+Тестовые наборы для модуля flip.py представлены в таблице ~\ref{tab:test_flip}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для функции \texttt{flip\_image} (flip.py) \label{tab:test_flip}} \\
+	\caption{Тестовые наборы для функции flip\_image (flip.py) \label{tab:test_flip}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -319,8 +332,11 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля noise.py}
+
+Тестовые наборы для модуля noise.py представлены в таблице ~\ref{tab:test_noise}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для функции \texttt{add\_noise} (noise.py) \label{tab:test_noise}} \\
+	\caption{Тестовые наборы для функции add\_noise (noise.py) \label{tab:test_noise}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -341,8 +357,11 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля pipeline.py}
+
+Тестовые наборы для модуля pipeline.py представлены в таблице ~\ref{tab:test_pipeline}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для функции \texttt{process\_images} (pipeline.py) \label{tab:test_pipeline}} \\
+	\caption{Тестовые наборы для функции process\_images (pipeline.py) \label{tab:test_pipeline}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -363,8 +382,11 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля main\_window.py}
+
+Тестовые наборы для модуля main\_window.py представлены в таблице ~\ref{tab:test_main_window}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для класса \texttt{MainWindow} (main\_window.py) \label{tab:test_main_window}} \\
+	\caption{Тестовые наборы для класса MainWindow (main\_window.py) \label{tab:test_main_window}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -385,8 +407,11 @@
 \end{xltabular}
 
 \subsubsection{Тестовые наборы для модуля augmentation\_selector.py}
+
+Тестовые наборы для модуля augmentation\_selector.py представлены в таблице ~\ref{tab:test_augmentation_selector}.
+
 \begin{xltabular}{\textwidth}{|X|X|X|}
-	\caption{Тестовые наборы для класса \texttt{AugmentationSelectorDialog} (augmentation\_selector.py) \label{tab:test_augmentation_selector}} \\
+	\caption{Тестовые наборы для класса AugmentationSelectorDialog (augmentation\_selector.py) \label{tab:test_augmentation_selector}} \\
 	\hline
 	\centrow Описание теста &
 	\centrow Входные данные &
@@ -459,10 +484,10 @@
 	\label{fig:systest6}
 \end{figure}
 
-На рисунке~\ref{fig:systest7} представлено главное окно приложения при запуске.
+На рисунке~\ref{fig:systest7} представлен результат аугментации.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{"images/systest7"}
-	\caption{Результат распознавания нефтяных пятен}
+	\caption{Результат аугментации}
 	\label{fig:systest7}
 \end{figure}
